@@ -51,8 +51,6 @@ public class ExtractImagesTool extends Configured implements Tool {
 		final String outputImages = args[1];
 		final String idsFile = args[2];
 
-		DistributedCache.addCacheFile(new URI(idsFile + "#ids.txt"), getConf());
-
 		final Path[] p = SequenceFileUtility.getFilePaths(inputImages, "part");
 		final Job job = TextBytesJobUtil.createJob(p, new Path(outputImages), null, this.getConf());
 		job.setJarByClass(this.getClass());
@@ -63,6 +61,9 @@ public class ExtractImagesTool extends Configured implements Tool {
 
 		job.setNumReduceTasks(0);
 		job.setOutputFormatClass(SequenceFileOutputFormat.class);
+
+		DistributedCache.createSymlink(job.getConfiguration());
+		DistributedCache.addCacheFile(new URI(idsFile + "#ids.txt"), job.getConfiguration());
 
 		job.waitForCompletion(true);
 

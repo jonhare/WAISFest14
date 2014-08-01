@@ -76,11 +76,13 @@
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
+<!--
           <archive>
             <manifest>
               <mainClass>uk.ac.soton.ecs.waisfest14.ColourAnalysisTool</mainClass>
             </manifest>
           </archive>
+-->
         </configuration>
       </plugin>
       <plugin>
