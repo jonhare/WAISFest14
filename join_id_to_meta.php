@@ -50,7 +50,7 @@ while(($line = fgetcsv($id_col_val, 0, "\t")) !== FALSE)
 		{
 			$time_from_epoch = strtotime($match['date_uploaded']);
 		}
-		if($time_from_epoch != NULL && $time_from_epoch <= time() && $time_from_epoch >= 0)
+		if($time_from_epoch != NULL && $time_from_epoch <= time() && $time_from_epoch >= 0 && $match['lat'] != NULL && $match['long'] != NULL)
 		{
 			$result = array(
 
@@ -67,3 +67,4 @@ while(($line = fgetcsv($id_col_val, 0, "\t")) !== FALSE)
 	}
 }
 fclose($results_file);
+fclose($id_col_val);
