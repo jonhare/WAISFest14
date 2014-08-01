@@ -34,12 +34,14 @@ $results_file = fopen($output, 'w');
 while(($line = fgetcsv($img_meta)) !== FALSE)
 {
 	$image_tags = explode(', ', mb_strtolower($line[17], 'UTF-8'));
+	$image_tags = str_replace(array('[', ']'), '', $image_tags);
 	foreach($tags_array as $tag)
 	{
 		if(in_array($tag, $image_tags))
 		{
 			fputcsv($results_file, $line);
-			break 2;
+			print_r($line);
+			break;
 		}
 	}
 }
