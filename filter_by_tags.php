@@ -1,18 +1,16 @@
 <?php
 
 /*********************************************************
-* First argument is the results of			 *
-* join_images_to_meta.php.				 *
-* Second argument is a .csv containing the latitude and  *
-* longitude to search nearby (X points either way).	 *
-* Third argument is an int representing the search	 *
-* distance.						 *
-* Outputs those that pass the filter to a .csv file.	 *
+* From the meta-data of all the images filters based on  *
+* their tags.						 *
+* The first argument is the meta-data .csv to look	 *
+* through.						 *
+* The second is a single line .csv of tags.		 *
+* The third is the output file.				 *
 *********************************************************/
 
 /*********************************************************
-* Output .csv format:					 *
-* id,col_val,lat,long,date_taken,date_uploaded		 *
+* Outputs in the same format as the meta-data input.	 *
 *********************************************************/
 
 
