@@ -29,10 +29,12 @@ foreach($line as $tag)
 }
 fclose($tags);
 
+$i = 0;
 $img_meta = fopen($img_meta, 'r');
 $results_file = fopen($output, 'w');
 while(($line = fgetcsv($img_meta)) !== FALSE)
 {
+	$i++;
 	$image_tags = explode(', ', mb_strtolower($line[17], 'UTF-8'));
 	$image_tags = str_replace(array('[', ']'), '', $image_tags);
 	foreach($tags_array as $tag)
@@ -40,9 +42,11 @@ while(($line = fgetcsv($img_meta)) !== FALSE)
 		if(in_array($tag, $image_tags))
 		{
 			fputcsv($results_file, $line);
-			print_r($line);
 			break;
 		}
+	}
+	if($i % 1000 === 0) {
+		echo $i, ' rows processed.', "\n";
 	}
 }
 fclose($results_file);
