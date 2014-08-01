@@ -7,11 +7,15 @@
 * as a .csv.						 *
 * Links the IDs and the relevant meta-data, then outputs *
 * as a .csv to the third argument.			 *
+* When calculating the date from the epoch, uses the	 *
+* taken date if it is available, otherwise uses the	 *
+* upload date.						 *
 *********************************************************/
 
 /*********************************************************
 * Output .csv format:					 *
-* id,col_val,lat,long,date_taken,date_uploaded
+* id,col_val,lat,long,date_taken,date_uploaded,		 *
+* date_from_epoch
 *********************************************************/
 
 $id_col_val = $argv[1];
@@ -31,25 +35,32 @@ while(($line = fgetcsv($img_meta)) !== FALSE)
 }
 fclose($img_meta);
 
-$results = array();
 $id_col_val = fopen($id_col_val, 'r');
+$results_file = fopen($output, 'w');
 while(($line = fgetcsv($id_col_val, 0, "\t")) !== FALSE)
 {
-	$match = $img_meta_array[$line[0]];
-	$results[] = array(
-				'id'		=> trim($line[0]),
-				'col_val'	=> trim($line[1]),
-				'lat'		=> $match['lat'],
-				'long'		=> $match['long'],
-				'date_taken'	=> $match['date_taken'],
-				'date_uploaded'	=> $match['date_uploaded']
-			  );
-}
-fclose($id_col_val);
+	$match = $img_meta_array[trim($line[0])];
+	if(trim($line[1]) !== 'NaN')
+	{
+		if(isset($match['date_taken']))
+		{
+			$time_from_epoch = strtotime($match['date_taken']);
+		}
+		else
+		{
+			$time_from_epoch = strtotime($match['date_uploaded']);
+		}
+		$result = array(
 
-$results_file = fopen($output, 'w');
-foreach($results as $result)
-{
-	fputcsv($results_file, $result);
+					'id'			=> trim($line[0]),
+					'col_val'		=> trim($line[1]),
+					'lat'			=> $match['lat'],
+					'long'			=> $match['long'],
+					'date_taken'		=> $match['date_taken'],
+					'date_uploaded'		=> $match['date_uploaded'],
+					'date_from_epoch'	=> $time_from_epoch
+			       );
+		fputcsv($results_file, $result);
+	}
 }
 fclose($results_file);
