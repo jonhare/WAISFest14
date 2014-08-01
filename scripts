@@ -1,0 +1,8 @@
+Selects colour value and time from the file, swaps them (for Plot2 formatting), and copies to clipboard.
+cut -d, -f2,7 results_below_equator.csv | awk -F, '{ print $2 "," $1 }' | pbcopy
+
+Gets results that exist below the equator (use '>' for above).
+awk -F, '$3 < 0' results.csv > results_below_equator.csv
+
+Sorts based on time since the epoch.
+sort -t, -n -k 7 results.csv > results_sorted.csv
