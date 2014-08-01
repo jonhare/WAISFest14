@@ -49,6 +49,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+			<groupId>org.openimaj.content</groupId>
+			<artifactId>visualisations</artifactId>
+      <version>${openimaj.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.openimaj</groupId>
       <artifactId>xuggle-video</artifactId>
       <version>${openimaj.version}</version>

@@ -79,7 +79,10 @@ public final class DrawOperation implements Operation<Context>, WindowProcessLis
 
 		float v = ctx.getTyped(CSVStream.COLOUR_VALUE);
 		v = Interpolation.lerp(v, -1f, 0.4f, 1f, 0f);
-		final Float[] colour = ColourSpace.HSV.convertToRGB(new Float[] { v, 1f, 1f });
+		final Float[] colour = ColourSpace.HSV.convertToRGB(new Float[] { v,
+				1f, 1f });
+		// v = (1 - v) / 2;
+		// final Float[] colour = { v, v, v };
 
 		if (xx >= 0 && xx < img.getWidth() && yy >= 0 && yy < img.getHeight()) {
 			this.layer.drawPoint(new Point2dImpl(xx, yy), colour, size);

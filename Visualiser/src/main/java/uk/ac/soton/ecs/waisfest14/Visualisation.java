@@ -10,7 +10,6 @@ import org.openimaj.image.colour.RGBColour;
 import org.openimaj.util.data.Context;
 import org.openimaj.util.function.Operation;
 import org.openimaj.util.stream.Stream;
-import org.openimaj.video.xuggle.XuggleVideoWriter;
 
 public class Visualisation {
 	public static void main(String[] args) throws IOException {
@@ -19,8 +18,10 @@ public class Visualisation {
 
 		final DrawOperation pointOp = new DrawOperation(image, true);
 
-		// final XuggleVideoWriter xvw = new XuggleVideoWriter("/Users/jsh2/Desktop/leaves-8day.mp4", image.getWidth(),
-		//		image.getHeight(), 10);
+		// final XuggleVideoWriter xvw = new
+		// XuggleVideoWriter("/Users/jsh2/Desktop/leaves-8day.mp4",
+		// image.getWidth(),
+		// image.getHeight(), 10);
 
 		new CSVStream(new File(args[0]))
 				.transform(new TimeWindow(8 * 24 * 60 * 60 * 1000L))
@@ -38,9 +39,9 @@ public class Visualisation {
 						pointOp.windowDrawn(ctx);
 
 						FullScreenDemo.update(window, image);
-		//				xvw.addFrame(image);
+						// xvw.addFrame(image);
 					}
 				});
-		//xvw.close();
+		// xvw.close();
 	}
 }
