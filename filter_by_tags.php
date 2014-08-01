@@ -2,7 +2,7 @@
 
 /*********************************************************
 * From the meta-data of all the images filters based on  *
-* their tags.						 *
+* their title, description and tags.			 *
 * The first argument is the meta-data .csv to look	 *
 * through.						 *
 * The second is a single line .csv of tags.		 *
@@ -12,7 +12,6 @@
 /*********************************************************
 * Outputs in the same format as the meta-data input.	 *
 *********************************************************/
-
 
 $img_meta = $argv[1];
 $tags = $argv[2];
@@ -35,9 +34,11 @@ while(($line = fgetcsv($img_meta)) !== FALSE)
 	$i++;
 	$image_tags = explode(', ', mb_strtolower($line[17], 'UTF-8'));
 	$image_tags = str_replace(array('[', ']'), '', $image_tags);
+	$image_title = mb_strtolower($line[7], 'UTF-8');
+	$image_desc = mb_strtolower($line[8], 'UTF-8');
 	foreach($tags_array as $tag)
 	{
-		if(in_array($tag, $image_tags))
+		if(in_array($tag, $image_tags) || strpos($image_title, $tag) !== FALSE || strpos($image_desc, $tag) !== FALSE)
 		{
 			fputcsv($results_file, $line);
 			break;
