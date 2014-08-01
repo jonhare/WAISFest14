@@ -19,10 +19,10 @@ public class Visualisation {
 
 		final DrawOperation pointOp = new DrawOperation(image, true);
 
-		final XuggleVideoWriter xvw = new XuggleVideoWriter("/Users/jsh2/Desktop/leaves-8day.mp4", image.getWidth(),
-				image.getHeight(), 10);
+		// final XuggleVideoWriter xvw = new XuggleVideoWriter("/Users/jsh2/Desktop/leaves-8day.mp4", image.getWidth(),
+		//		image.getHeight(), 10);
 
-		new CSVStream(new File("/Users/jsh2/Desktop/results_sorted.csv"))
+		new CSVStream(new File(args[0]))
 				.transform(new TimeWindow(8 * 24 * 60 * 60 * 1000L))
 				.forEach(new Operation<Context>() {
 
@@ -38,9 +38,9 @@ public class Visualisation {
 						pointOp.windowDrawn(ctx);
 
 						FullScreenDemo.update(window, image);
-						xvw.addFrame(image);
+		//				xvw.addFrame(image);
 					}
 				});
-		xvw.close();
+		//xvw.close();
 	}
 }
