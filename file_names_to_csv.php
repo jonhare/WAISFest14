@@ -12,7 +12,7 @@
 $dir = $argv[1];
 $output = $argv[2];
 
-$files = scandir($dir);
+$files = array_diff(scandir($dir), array('.', '..', '.DS_Store'));;
 $results_file = fopen($output, 'w');
 foreach($files as $file)
 {
